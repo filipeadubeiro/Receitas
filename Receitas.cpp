@@ -12,7 +12,7 @@ using namespace std::chrono;
 
 bool getReceitas(std::string Receitas, std::vector<std::string>& vectReceitas)
 {
-	std::ifstream listaRceitas(Receitas.c_str());
+	std::ifstream listaRceitas(Receitas);
 
 	if (!listaRceitas)
 	{
@@ -31,35 +31,6 @@ bool getReceitas(std::string Receitas, std::vector<std::string>& vectReceitas)
 	return true;
 }
 
-
-/*std::string Receitas[] = { //Mudar quando adicionar receitas
-	"Salmao Grelhado com Arroz de Tomate",
-	"Massa de Bacalhau com Ovo Escalfado",
-	"Salada Russa com Filetes",
-	"Peixe no Forno com Batatas e Legumes",
-	"Medalhoes de Pescada na Frigideira",
-	"Pescada Frita com Bacon",
-	"Arroz de Peixe",
-	"Bacalhau no Forno com Broa",
-	"Bacalhau a Gomes Sa",
-	"Bifinhos de Peru com Cogumelos",
-	"Esparguete a Bolonhesa",
-	"Frango a Bras",
-	"Carne Guisada com Batatas e Ervilhas",
-	"Panados com Arroz de Cenoura",
-	"Empadao de Carne",
-	"Frango Guisado com Pure",
-	"Carne Grelhada com Arroz de Feijao",
-	"Massa na Frigideira com Carne e Feijao",
-	"Feijoada",
-	"Massa de Atum",
-	"Bife de vaca frito com massa",
-	"Sopa com Redon :-P"
-
-};
-*/
-//int nReceitas = 22;
-
 std::string Pick(int nReceitas, std::vector<std::string> vect)
 {
 	int Aleatorio = rand() % nReceitas;
@@ -69,13 +40,15 @@ std::string Pick(int nReceitas, std::vector<std::string> vect)
 
 int main()
 {
+	char option;
+
+	do{
 	std::vector<std::string> vectReceitas;
 
 	bool result = getReceitas("Receitas.txt", vectReceitas);
 	
 	srand(time(NULL));
-	std::ofstream file;
-	file.open("Menu.txt");
+	std::ofstream file ("Menu.txt");
 	std::string Escolha = Pick(vectReceitas.size(), vectReceitas);
 	std::string Refeicoes[14];
 	std::string Refeicao1 = Escolha;
@@ -176,6 +149,12 @@ int main()
 		std::cout << x << std::endl;
 	}
 	menu.close();
+
+	std::cout << "Gerar outra vez? (S/N)\n";
+	std::cin >> option;
+	std::cout << "\n\n";
+	}
+	while (option == 'S' || option == 's' ? true : false);
 
 	system("pause");
 
